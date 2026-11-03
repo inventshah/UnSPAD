@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="UnSPAD is an uncertainty-aware framework for reconstructing long bursts of binary single-photon measurements.">
+  <meta name="theme-color" content="#08111f">
+  <title>UnSPAD — Uncertainty-aware Single Photon Burst Photography</title>
+  <link rel="stylesheet" href="./static/styles.css">
+</head>
+
+<body>
+  <main id="top">
+    <section class="hero">
+      <div class="shell hero-content">
+        <h1>UnSPAD: Uncertainty-aware Single Photon Burst Photography</h1>
+        <div class="authors" aria-label="Authors"><span>Sachin Shah</span><span>Kalyan Bhetwal</span><span>Levi Burner</span><span>Christopher A. Metzler</span></div>
+        <p class="affiliation">University of Maryland, College Park</p>
+        <p class="venue">WACV 2027</p>
+      </div>
+    </section>
+
+    <section class="section" id="abstract">
+      <div class="shell narrow">
+        <div class="section-heading centered"><h2>Abstract</h2></div>
+        <p class="abstract-copy">We introduce UnSPAD, an uncertainty-aware burst photography framework capable of fusing and denoising arbitrarily long sequences of binary single photon avalanche diode (SPAD) measurements. Unlike prior methods that require fixed burst lengths or rely on powerful generative priors, UnSPAD combines learned motion estimation with uncertainty-informed measurement fusion and denoising to produce temporally consistent, hallucination-free reconstructions. UnSPAD first forms an initial scene estimate by averaging flow-aligned binary frames. UnSPAD then uses per-pixel uncertainty maps to perform uncertainty-aware denoising; the denoiser is informed about which regions accumulated the fewest observations (and thus contain the most relative shot noise) due to motion, occlusion, or alignment errors. This two-step reconstruction pipeline helps mitigate hallucinations—outside of the structure implicitly introduced by the flow estimates, the initial scenes estimates are entirely prior-free. Experiments on real and simulated SPAD and quantum image sensor (QIS) benchmarks demonstrate state-of-the-art reconstruction quality, improved temporal consistency, and superior color fidelity relative to the state of the art.</p>
+      </div>
+    </section>
+
+    <section class="section section-tinted" id="method">
+      <div class="shell">
+        <div class="section-heading centered method-intro"><h2>Method overview</h2><p>UnSPAD aligns 1-bit SPAD frames using optical flow computed from low-bit proxy frames. The aligned burst produces a high-quality initial estimate; a final denoiser then uses an uncertainty map to focus on under-observed regions caused by motion, occlusion, or alignment errors.</p></div>
+        <figure class="method-figure">
+          <img src="./static/method-overview.png" alt="UnSPAD pipeline: binary SPAD frames are aggregated into proxy frames, aligned with optical flow, fused with uncertainty estimates, and denoised into the final reconstruction." width="1920" height="497">
+        </figure>
+      </div>
+    </section>
+
+    <section class="section" id="results">
+      <div class="shell">
+        <div class="section-heading centered results-intro"><h2>Real color SPAD reconstructions</h2><p>All sequences are reconstructed at 850 fps and visualized at 30 fps. Videos are downsampled to 512 × 512 for the web.</p></div>
+        <div class="results-grid">
+          <article class="result-card"><div class="result-meta"><h3>Die drop I</h3></div><div class="comparison-labels" aria-hidden="true"><span>Average of 77</span><span>Burst-gQIR</span><span>UnSPAD</span></div><video controls muted playsinline preload="metadata"><source src="./static/videos/stack-dieDrop0002.mp4" type="video/mp4">Your browser does not support embedded video.</video></article>
+          <article class="result-card"><div class="result-meta"><h3>Composite scene</h3></div><div class="comparison-labels" aria-hidden="true"><span>Average of 77</span><span>Burst-gQIR</span><span>UnSPAD</span></div><video controls muted playsinline preload="metadata"><source src="./static/videos/stack-compositeScene0001.mp4" type="video/mp4">Your browser does not support embedded video.</video></article>
+          <article class="result-card"><div class="result-meta"><h3>Die drop II</h3></div><div class="comparison-labels" aria-hidden="true"><span>Average of 77</span><span>Burst-gQIR</span><span>UnSPAD</span></div><video controls muted playsinline preload="metadata"><source src="./static/videos/stack-dieDrop0001.mp4" type="video/mp4">Your browser does not support embedded video.</video></article>
+          <article class="result-card"><div class="result-meta"><h3>Helmet</h3></div><div class="comparison-labels" aria-hidden="true"><span>Average of 77</span><span>Burst-gQIR</span><span>UnSPAD</span></div><video controls muted playsinline preload="metadata"><source src="./static/videos/stack-helmet0002.mp4" type="video/mp4">Your browser does not support embedded video.</video></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section consistency-section" id="consistency">
+      <div class="shell">
+        <div class="section-heading centered results-intro"><h2>Temporal consistency</h2><p>Unlike generative methods, UnSPAD preserves scene structure over time. When the lights turn off in this sequence, generative baselines change the shape of the vase; UnSPAD remains consistent.</p></div>
+        <article class="result-card"><div class="result-meta"><h3>Christmas lights</h3></div><div class="comparison-labels four-columns" aria-hidden="true"><span>1-bit</span><span>Average of 77</span><span>Burst-gQIR</span><span>UnSPAD</span></div><video controls muted playsinline preload="metadata"><source src="./static/videos/stack-christmasLights0003.mp4" type="video/mp4">Your browser does not support embedded video.</video></article>
+      </div>
+    </section>
+
+    <section class="section" id="citation">
+      <div class="shell narrow citation-layout">
+        <div class="bibtex" role="button" tabindex="0" aria-label="Copy BibTeX citation">
+          <span class="copy-button" aria-hidden="true">Click to copy</span>
+          <pre><code id="bibtex-code">@inproceedings{shah2027unspad,
+  title     = {UnSPAD: Uncertainty-aware Single Photon Burst Photography},
+  author    = {Shah, Sachin and Bhetwal, Kalyan and Burner, Levi and
+               Metzler, Christopher A.},
+  booktitle = {Proceedings of the IEEE/CVF Winter Conference on
+               Applications of Computer Vision (WACV)},
+  year      = {2027}
+}</code></pre>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const bibtex = document.querySelector('.bibtex');
+    const copyLabel = document.querySelector('.copy-button');
+    const copyBibtex = async () => {
+      await navigator.clipboard.writeText(document.querySelector('#bibtex-code').innerText);
+      copyLabel.textContent = 'Copied';
+      window.setTimeout(() => { copyLabel.textContent = 'Click to copy'; }, 1600);
+    };
+    bibtex.addEventListener('click', copyBibtex);
+    bibtex.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        copyBibtex();
+      }
+    });
+  </script>
+</body>
+</html>
